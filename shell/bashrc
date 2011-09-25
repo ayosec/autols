@@ -1,0 +1,12 @@
+
+function launch_autols {
+  if [ ! x$AUTOLS_LAST_DIR = x$PWD ]
+  then
+    AUTOLS_LAST_DIR=$PWD
+    eval autols $AUTOLS_OPTIONS
+  fi
+}
+
+AUTOLS_LAST_DIR=$PWD
+PROMPT_COMMAND="launch_autols;$PROMPT_COMMAND"
+

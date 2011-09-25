@@ -1,0 +1,11 @@
+
+autoload add-zsh-hook
+
+launch_autols() {
+  eval autols $AUTOLS_OPTIONS
+}
+
+add-zsh-hook chpwd launch_autols
+
+
+# vim: syntax=zsh
