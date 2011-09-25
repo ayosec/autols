@@ -1,0 +1,54 @@
+= The autols tool
+
+The +autols+ program helps to browser the filesystem. Each time you enter into a directory the program will execute a +ls+ on it. You can limit the number of files (to avoid a flooding when enter in a big directory), change the arguments to the +ls+ and even use a different program.
+
+== Installation
+
+Download the source code from <tt>git://github.com/ayosec/autols.git</tt> and run +scons+
+
+  $ git clone git://github.com/ayosec/autols.git
+  $ cd autols
+  $ scons
+
++scons+ is available as a package in most Linux distros. MacOS users can install it via homebrew[http://mxcl.github.com/homebrew/].
+
+Once +scons+ have built the +autols+ binary, copy it to a directory present in your <tt>$PATH</tt>. For example, +/usr/local/bin+.
+
+  $ sudo cp autols /usr/local/bin/
+
+=== Shell configuration
+
+When the +autols+ command can be found via <tt>$PATH</tt> you have to load the configuration for your shell. In the +/shell/+ directory in the repository you can find the snippets the load +autols+ in Bash and Zsh.
+
+For Bash:
+
+  $ echo source $PWD/shell/bashrc >> ~/.bashrc
+
+For Zsh:
+
+  $ echo source $PWD/shell/zsh >> ~/.zshrc
+
+Now, reload your shell (or open a new one) and you will see a +ls+ after every +cd+, +pushd+, +popd+ or any other method that you use to change the current directory.
+
+=== Manual building
+
+If you don't want to install +scons+ you can compile the files with a single line of the GCC compiler:
+
+  $ gcc -o autols src/*.c
+
+
+== Options
+
+The program recognizes three options. None of these options are required. You should be able to use +autols+ with the default values with no problems.
+
+[<tt>-l number</tt>] If the number of non-hidden files in the directory is greater than the <tt>-l</tt> limit, the +ls+ will not be executed. Instead, a one-line summary will be printed. Defaults to 40.
+[<tt>-m number</tt>] The header includes the directory name. If the name length is greater than the <tt>-m</tt> limit it will replace the middle with an ellipsis.  Defaults to 60, and the min value is 10.
+[<tt>-c string</tt>] The command to execute when the <tt>-l</tt> limit is not exceeded. Defaults to <tt>ls --color=always -F</tt>
+
+You can modify the arguments used to execute the +autols+ with the env variable +AUTOLS_OPTIONS+. For example
+
+  $ cat >> ~/.bashrc <<END
+  AUTOLS_OPTIONS="-c 'ls -lF' -l 100"
+  END
+
+<b>Note for MacOS users</b>: It seems that MacOS does not use the GNU +ls+, and its +ls+ has no <tt>--color</tt> option. You should set +AUTOLS_OPTIONS+ to remove <tt>--color</tt>. Try with <tt>AUTOLS_OPTIONS="-c 'ls -GF'"</tt>. You can see the options in the manpage[http://developer.apple.com/library/mac/documentation/darwin/reference/manpages/man1/ls.1.html].
