@@ -4,17 +4,12 @@ The +autols+ program helps to browser the filesystem. Each time you enter into a
 
 == Installation
 
-Download the source code from <tt>git://github.com/ayosec/autols.git</tt> and run +scons+
+Download the source code from <tt>git://github.com/ayosec/autols.git</tt> and run +make+
 
-  $ git clone git://github.com/ayosec/autols.git
+  $ git clone https://github.com/ayosec/autols.git
   $ cd autols
-  $ scons
-
-+scons+ is available as a package in most Linux distros. MacOS users can install it via homebrew[http://mxcl.github.com/homebrew/].
-
-Once +scons+ have built the +autols+ binary, copy it to a directory present in your <tt>$PATH</tt>. For example, +/usr/local/bin+.
-
-  $ sudo cp autols /usr/local/bin/
+  $ make
+  $ sudo make install
 
 === Shell configuration
 
@@ -29,13 +24,6 @@ For Zsh:
   $ echo source $PWD/shell/zsh >> ~/.zshrc
 
 Now, reload your shell (or open a new one) and you will see a +ls+ after every +cd+, +pushd+, +popd+ or any other method that you use to change the current directory.
-
-=== Manual building
-
-If you don't want to install +scons+ you can compile the files with a single line of the GCC compiler:
-
-  $ gcc -o autols src/*.c
-
 
 == Options
 
