@@ -7,7 +7,6 @@ int main(int argc, char** argv)
 
   char human_size_buf[128];
   char header[256];
-  char *ignore;
   int string_width;
 
   /* Parse options and analyze the directory */

@@ -43,7 +43,9 @@ void analyze_dir(const struct options* options, struct dirdata* dd) {
       dd->hidden_count++;
 
     /* Build a full path to stat it */
-    snprintf(file_path, sizeof(file_path), "%s/%s", options->path_name, dir_entry->d_name);
+    if(snprintf(file_path, sizeof(file_path), "%s/%s", options->path_name, dir_entry->d_name) < 0)
+      continue;
+
     if (!stat(file_path, &st)) {
       if (S_ISDIR(st.st_mode))
         dd->dirs_count++;

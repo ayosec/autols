@@ -11,16 +11,14 @@ void usage(const char* progname) {
   );
 }
 
-int get_options(int argc, char** argv, struct options* options) {
+void get_options(int argc, char** argv, struct options* options) {
 
-  char directory_name[PATH_MAX];
-  char *ignore;
   int option;
 
   memset(options, 0, sizeof(*options));
   options->max_name_shown = DEFAULT_MAX_NAME_SHOWN;
   options->limit_to_exec_ls = DEFAULT_LIMIT_TO_EXEC_LS;
-  options->ls_command[0] = 0;
+  options->ls_command = NULL;
 
   while ((option = getopt (argc, argv, "hl:m:c:")) != -1) {
     switch(option) {
@@ -35,7 +33,7 @@ int get_options(int argc, char** argv, struct options* options) {
         break;
 
       case 'c':
-        strncpy(options->ls_command, optarg, sizeof(options->ls_command));
+        options->ls_command = strdup(optarg);
         break;
 
       default:
@@ -48,7 +46,7 @@ int get_options(int argc, char** argv, struct options* options) {
   switch(argc - optind) {
     case 0:
       /* There is no extra argument, so the target directory will be the current */
-      ignore = getcwd(options->path_name, sizeof(options->path_name));
+      getcwd(options->path_name, sizeof(options->path_name));
       break;
 
     case 1:
@@ -63,7 +61,7 @@ int get_options(int argc, char** argv, struct options* options) {
   }
 
   /* If there is no ls command, copy the default */
-  if(options->ls_command[0] == 0)
-    strncpy(options->ls_command, DEFAULT_LS_COMMAND, sizeof(options->ls_command));
+  if(options->ls_command == NULL)
+    options->ls_command = DEFAULT_LS_COMMAND;
 
 }

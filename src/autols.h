@@ -25,13 +25,11 @@ struct dirdata {
 struct options {
   int max_name_shown;
   int limit_to_exec_ls;
-  char ls_command[128];
+  char *ls_command;
   char path_name[PATH_MAX];
 };
 
-/* Defined in console_functions.c */
 int window_columns();
 int human_size(long int bytes, char* buffer, int buffer_size);
-
-/* Defined in fetch_data.c */
 void analyze_dir(const struct options* options, struct dirdata* dd);
+void get_options(int argc, char** argv, struct options* options);
