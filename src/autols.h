@@ -11,7 +11,7 @@
 
 #define DEFAULT_MAX_NAME_SHOWN 60
 #define DEFAULT_LIMIT_TO_EXEC_LS 40
-#define DEFAULT_LS_COMMAND "ls --color=always -F"
+#define DEFAULT_LS_COMMAND "ls --color=auto --group-directories-first -F"
 
 struct dirdata {
   int dirs_count;
